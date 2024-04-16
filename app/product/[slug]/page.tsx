@@ -1,5 +1,7 @@
 
 
+import AddToBug from '@/app/components/AddToBug';
+import CheckoutNow from '@/app/components/CheckoutNow';
 import ImagesGallery from '@/app/components/ImagesGallery';
 import { fullProduct } from '@/app/interface';
 import { client } from '@/app/lib/sanity'
@@ -16,6 +18,7 @@ async function GetData(slug:string) {
     images,
     "slug" : slug.current,
     "categoryName": category->name,
+    price_id
   }`
 
   const data = await client.fetch(query)
@@ -29,7 +32,7 @@ async function ProductPage({ params }: { params: { slug: string } }) {
   // console.log("data :",data)
 
   return (
-    <div className='bg-white'>
+    <div className='bg-white h-screen'>
       <div className='mx-auto max-w-screen-xl px-4 md:px-8'>
         <div className='grid gap-8 md:grid-cols-2'>
           <ImagesGallery images={data.images} />
@@ -77,8 +80,24 @@ async function ProductPage({ params }: { params: { slug: string } }) {
             </div>
 
             <div className='flex'>
-              <Button>Add to Bug</Button>
-              <Button variant={"secondary"}>Checkout new</Button>
+              <AddToBug 
+                currency="USD"
+                description={data.description}
+                image={data.images[0]}
+                name={data.name}
+                price={data.price}
+                key={data._id}
+                price_id={data.price_id}
+              />
+              <CheckoutNow 
+                currency="USD"
+                description={data.description}
+                image={data.images[0]}
+                name={data.name}
+                price={data.price}
+                key={data._id}
+                price_id={data.price_id}
+              />
             </div>
 
             <p className="mt-12 text-base text-gray-500 tracking-wide">

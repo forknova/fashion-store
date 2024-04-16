@@ -5,6 +5,8 @@ import "./globals.css";
 import { cn } from "@/lib/utils"
 import NavBar from "@/app/components/NavBar";
 import Footer from "@/app/components/Footer";
+import CartProvider from "./components/Providers";
+import ShoppingCartModal from "./components/ShoppingCartModal";
  
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,9 +29,12 @@ export default function RootLayout({
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}>
-          <NavBar />
-          {children}
-          <Footer />
+          <CartProvider >
+            <NavBar />
+              <ShoppingCartModal />
+              {children}
+            <Footer />
+          </CartProvider>
       </body>
     </html>
   );
