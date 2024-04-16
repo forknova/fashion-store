@@ -9,6 +9,8 @@ import { Button } from '@/components/ui/button';
 import { Star, Truck } from 'lucide-react';
 import React from 'react'
 
+export const dynamic = 'force-dynamic'
+
 async function GetData(slug:string) {
   const query = `*[_type == 'product' && slug.current == "${slug}"][0] {
     _id,
